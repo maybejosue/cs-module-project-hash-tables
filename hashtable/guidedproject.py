@@ -44,3 +44,7 @@ def djb2(key):
 
 
 print(djb2('hello world'))
+
+a = [[8, 4], [90, -1, 3], [9, 62], [-7, -1, -56, -6], [201], [76, 18]]
+
+# get the least number of each arr and add them together
