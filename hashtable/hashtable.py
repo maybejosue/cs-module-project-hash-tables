@@ -2,6 +2,7 @@ class HashTableEntry:
     """
     Linked List hash table key/value pair
     """
+
     def __init__(self, key, value):
         self.key = key
         self.value = value
@@ -21,10 +22,11 @@ class HashTable:
     """
 
     def __init__(self, capacity):
+        self.capacity = capacity
         # Your code here
 
-
     def get_num_slots(self):
+        pass
         """
         Return the length of the list you're using to hold the hash
         table data. (Not the number of items stored in the hash table,
@@ -36,8 +38,8 @@ class HashTable:
         """
         # Your code here
 
-
     def get_load_factor(self):
+        pass
         """
         Return the load factor for this hash table.
 
@@ -45,8 +47,8 @@ class HashTable:
         """
         # Your code here
 
-
     def fnv1(self, key):
+        pass
         """
         FNV-1 Hash, 64-bit
 
@@ -55,8 +57,8 @@ class HashTable:
 
         # Your code here
 
-
     def djb2(self, key):
+        pass
         """
         DJB2 hash, 32-bit
 
@@ -64,16 +66,17 @@ class HashTable:
         """
         # Your code here
 
-
     def hash_index(self, key):
+        pass
         """
         Take an arbitrary key and return a valid integer index
         between within the storage capacity of the hash table.
         """
-        #return self.fnv1(key) % self.capacity
+        # return self.fnv1(key) % self.capacity
         return self.djb2(key) % self.capacity
 
     def put(self, key, value):
+        pass
         """
         Store the value with the given key.
 
@@ -83,8 +86,8 @@ class HashTable:
         """
         # Your code here
 
-
     def delete(self, key):
+        pass
         """
         Remove the value stored with the given key.
 
@@ -94,8 +97,8 @@ class HashTable:
         """
         # Your code here
 
-
     def get(self, key):
+        pass
         """
         Retrieve the value stored with the given key.
 
@@ -105,8 +108,8 @@ class HashTable:
         """
         # Your code here
 
-
     def resize(self, new_capacity):
+        pass
         """
         Changes the capacity of the hash table and
         rehashes all key/value pairs.
@@ -114,7 +117,6 @@ class HashTable:
         Implement this.
         """
         # Your code here
-
 
 
 if __name__ == "__main__":
