@@ -1,7 +1,5 @@
+# Creates a node essentially, but with key and value property and a pointer.
 class HashTableEntry:
-    """
-    Linked List hash table key/value pair
-    """
 
     def __init__(self, key, value):
         self.key = key
@@ -9,40 +7,22 @@ class HashTableEntry:
         self.next = None
 
 
-# Hash table can't have fewer than this many slots
-# MIN_CAPACITY = 8
-
+# Handles loop up via O(1) operation
 class HashTable:
-    """
-    A hash table that with `capacity` buckets
-    that accepts string keys
-    Implement this.
-    """
+    # initializes HashTable call via empty arr and counter
 
     def __init__(self, capacity):
-        # Your code here
-        # this creates our list multiplied with the capacity passed in
         self.capacity = [None] * capacity
         self.count = 0
 
+# return the length of the initialized arr
     def get_num_slots(self):
-        """
-        Return the length of the list you're using to hold the hash
-        table data. (Not the number of items stored in the hash table,
-        but the number of slots in the main list.)
-        One of the tests relies on this.
-        Implement this.
-        """
-        # Your code here
-        # return length of capacity
         return len(self.capacity)
 
+
+# load factor is the count / the length of the array
+
     def get_load_factor(self):
-        """
-        Return the load factor for this hash table.
-        Implement this.
-        """
-        # Your code here
         return self.count / self.get_num_slots()
 
     # def fnv1(self, key):
@@ -54,37 +34,24 @@ class HashTable:
     #     """
     #     # Your code here
 
+
+# djb2 hash function returns a string into a hashed number
+
     def djb2(self, key):
-        """
-        DJB2 hash, 32-bit
-        Implement this, and/or FNV-1.
-        """
-        # Your code here
-        # hash is 5381
         hash = 5381
 
-        # loop through all letters in key passed in
         for letter in key:
-            # hash is now set to 5381 * 33 and add method ord to letter
             hash = (hash * 33) + ord(letter)
 
         return hash
 
+# hash_index is a function that divides a hash string by the length of the initialize arr to return an index #
     def hash_index(self, key):
-        """
-        Take an arbitrary key and return a valid integer index
-        between within the storage capacity of the hash table.
-        """
-        # return self.fnv1(key) % length of self.capacity
         return self.djb2(key) % len(self.capacity)
 
+# put function essentialy preforms the entire flow
     def put(self, key, value):
-        """
-        Store the value with the given key.
-        Hash collisions should be handled with Linked List Chaining.
-        Implement this.
-        """
-        # Your code here
+        # checks load factor and resizes based on how many items the array is occupying
         if self.get_load_factor() >= 0.7:
             self.resize(len(self.capacity) * 2)
 
@@ -96,20 +63,21 @@ class HashTable:
 
         # check if self.capacity[hash_index] is None
         if self.capacity[hash_index] is None:
-            # then set self.capacity[hash_index] to the new_node
+            # if spot is empty, then set self.capacity[hash_index] to the new_node
             self.capacity[hash_index] = new_node
             self.count += 1
 
-        # set current to self.capacity[hash_index]
+        # set current as the node thats already in that index
         current = self.capacity[hash_index]
 
         # while loop (True)
         while True:
-            # check if current.next is None
+            # if there is already a value then override it
             if current.key == key:
                 current.value = value
                 break
 
+            # if current . next is none and key does not exist, insert it at the tail
             if current.next is None:
                 # then set current.next to new_node
                 current.next = new_node
@@ -120,13 +88,8 @@ class HashTable:
             # set current to current.next
             current = current.next
 
+# checks for multipe conditions, if slot in arr, is empty, also if it is tied as a linked list
     def delete(self, key):
-        """
-        Remove the value stored with the given key.
-        Print a warning if the key is not found.
-        Implement this.
-        """
-        # Your code here
         # set hash_index_num to self.hash_index(key)
         hash_index = self.hash_index(key)
 
@@ -146,12 +109,6 @@ class HashTable:
             current = current.next
 
     def get(self, key):
-        """
-        Retrieve the value stored with the given key.
-        Returns None if the key is not found.
-        Implement this.
-        """
-        # Your code here
         # set hash_index_num to hash_index(key)
         hash_index = self.hash_index(key)
 
@@ -174,12 +131,6 @@ class HashTable:
             current = current.next
 
     def resize(self, new_capacity):
-        """
-        Changes the capacity of the hash table and
-        rehashes all key/value pairs.
-        Implement this.
-        """
-        # Your code here
         # set old_list_copy to self.capacity
         old_list_copy = self.capacity
         # set self.capacity to [None] * (len(old_list_copy) * new_capacity)
